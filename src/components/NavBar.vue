@@ -1,5 +1,4 @@
 <template>
-    <!-- NAVBAR -->
     <nav class="navbar">
         <ul>
             <li><RouterLink active-class="active-link" to="/">Home</RouterLink></li>
@@ -35,6 +34,7 @@
     align-items: center;
     padding: 0 10px;
     gap: 20px;
+    font-weight: 600;
 }
 
 .navbar ul li {
@@ -71,8 +71,6 @@
         box-shadow: none;
     }
 
-    .navbar ul { gap: 30px; }
-
-    .navbar ul li { font-weight: 400; }    
+    .navbar ul { gap: 30px; }    
 }
 </style>

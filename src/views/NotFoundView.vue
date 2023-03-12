@@ -1,9 +1,11 @@
 <template>
+  <!-- NOT FOUND PAGE SECTION-->
     <section class="error-container not-found__page">
         <span>{{ num }}</span>
         <span><span class="screen-reader-text">0</span></span>
         <span>{{ num }}</span>
-        <a href="" class="more-link">Go back</a>
+        <p class="page-not-found__text">Sorry, page not found!</p>
+        <RouterLink to="/" class="home-link">Go back</RouterLink>
     </section>
 </template>
 
@@ -13,7 +15,6 @@
         data() {
             return {
                 num: 0,
-                count: 0,
                 timer: null,
             }
         },
@@ -25,7 +26,7 @@
                 }
                 this.num += 1;
             }, 100)
-            }, 500)
+            }, 300)
         }
     }
 </script>
@@ -36,30 +37,38 @@
   font-size: 40px;
   font-weight: 800;
 }
+
+.page-not-found__text { font-size: 0.8rem; }
+
 .error-container > span {
   display: inline-block;
   line-height: 0.7;
   position: relative;
   color: #FFB485;
 }
+
 .error-container > span {
   display: inline-block;
   position: relative;
   vertical-align: middle;
 }
+
 .error-container > span:nth-of-type(1) {
   color: #D1F2A5;
   animation: colordancing 4s infinite;
 }
+
 .error-container > span:nth-of-type(3) {
   color: #F56991;
   animation: colordancing2 4s infinite;
 }
+
 .error-container > span:nth-of-type(2) {
   width: 40px;
   height: 40px;
   border-radius: 50%;
 }
+
 .error-container > span:nth-of-type(2):before,
 .error-container > span:nth-of-type(2):after {
 	border-radius: 0%;
@@ -118,6 +127,7 @@
 				inset 0 -30px 0 rgba(245, 105, 145, 0.4);
   }
 }
+
 @keyframes colordancing {
   0% {
     color: #D1F2A5;
@@ -135,6 +145,7 @@
     color: #D1F2A5;
   }
 }
+
 @keyframes colordancing2 {
   0% {
     color: #FFC48C;
@@ -153,24 +164,23 @@
   }
 }
 
-a.more-link {
+.home-link {
   display: block;
   text-transform: uppercase;
   font-size: 0.6rem;
-  background-color: #92a4ad;
+  background: var(--bg-gradient-green-2);
   padding: 5px 10px;
-  border-radius: 0;
-  color: #416475;
+  color: var(--greenish);
   margin: 15px auto;
-  text-decoration: none;
   letter-spacing: 1px;
   width: 50%;
+  box-shadow: var(--shadow-1);
 }
 
 @media screen and (min-width: 768px) {
-    .not-found__page {
-        font-size: 80px;
-    }
+    .not-found__page { font-size: 80px; }
+
+    .page-not-found__text { font-size: 1.2rem; }
     
     .error-container > span:nth-of-type(2) {
       width: 65px;
@@ -192,7 +202,7 @@ a.more-link {
       border-radius: 50%;
     }
 
-    a.more-link { font-size: 1rem; }
+    .home-link { font-size: 1rem; }
 }
 
 @media screen and (min-width: 1250px) {

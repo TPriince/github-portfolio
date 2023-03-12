@@ -55,14 +55,20 @@ import { useRouter } from 'vue-router';
         methods: {
             getData() {
                 fetch('https://api.github.com/users/TPriince/repos?per_page=100')
-                .then(res => res.json())
+                .then(response => {
+                    if (response.ok) {
+                        this.loading = false;
+                        return response.json();
+                    } else {
+                        throw new Error('Something went wrong while list of repositories');
+                    }
+                })
                 .then(data => {
                     this.repos = data;
                     this.total = this.repos.length;
                     this.pages = Math.ceil(this.total / this.PER_PAGE);
                     this.skip = this.page * this.PER_PAGE - this.PER_PAGE;
                     this.reposPerPage = this.repos.slice(this.skip, this.skip + this.PER_PAGE);
-                    this.loading = false;
                 })
                 .catch(err => {
                     console.log(err);
@@ -198,16 +204,16 @@ import { useRouter } from 'vue-router';
 
 .btn-set {
     display: flex;
-    justify-content: center;
+    justify-content: flex-start;
     align-items: center;
-    gap: 5px;
+    gap: 8px;
     flex-wrap: wrap;
 }
 
 .btn-set .page-btn {
-    padding: 2px 10px;
+    padding: 3px 11px;
     border-radius: 6px;
-    font-size: 10px;
+    font-size: 12px;
 }
 
 .btn-set .page-btn.active-page { background: var(--bg-gradient-onyx); }

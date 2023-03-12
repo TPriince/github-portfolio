@@ -1,5 +1,4 @@
 <template>
-    <!-- ASIDE -->
     <aside :class="showMoreInfo ? 'sidebar active' : 'sidebar' ">
         <div class="sidebar-info">
             <figure class="image-box">

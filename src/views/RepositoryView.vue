@@ -1,9 +1,8 @@
 <template>
-    <div class="repo-details">
-        <header>
-            <h1 class="repo-details__title">Repository</h1>
-        </header>
-        <div v-if="!repoNotFound" class="repo-info">
+    <!-- REPOSITORY DETAILS SECTION-->
+    <section class="repo-details">
+        <h1 class="repo-details__title">Repository</h1>
+        <div v-if="repoFound" class="repo-info">
                 <h2 class="repo-name">{{ repo.name }}</h2>
                 <h3 class="repo-fullname"><span>Full Name:</span> {{ repo.full_name }}</h3>
                 <p v-if="repo.description"><span>Desricption:</span> {{ repo.description }}</p>
@@ -16,9 +15,9 @@
                 <a :href="repo.svn_url" target="_blank" class="repo-link">Link to repository</a>
         </div>
         <div v-else>
-            <h2>Repo not found</h2>
+            <h3 class="not-found__heading">Repository not found</h3>
         </div>
-    </div>
+    </section>
 </template>
 
 <script>
@@ -30,23 +29,27 @@ import { useRoute } from 'vue-router';
                 route: null,
                 pathName: null,
                 repo: {},
-                repoNotFound: false,
+                repoFound: true,
             }
         },
         created() {
             this.route = useRoute();
             this.pathName = this.route.params.name;
-            console.log(this.route.params);
-            console.log(this.pathName);
             this.getData();
         },
         methods: {
             getData() {
                 fetch(`https://api.github.com/repos/TPriince/${this.pathName}`)
-                .then(res => res.json())
+                .then(response => {
+                    if (response.ok) {
+                        return response.json();
+                    } else {
+                        this.repoFound = false;
+                        throw new Error('Something went wrong while fetching repository details');
+                    }
+                })
                 .then(data => {
                     this.repo = data;
-                    console.log(this.repo);
                 })
                 .catch(err => {
                     console.log(err);
@@ -95,6 +98,12 @@ import { useRoute } from 'vue-router';
     font-size: 1rem;
 }
 
+.not-found__heading {
+    text-align: center;
+    color: var(--light-gray-70);
+    font-weight: 500;
+}
+
 @media screen and (min-width: 580px) {
   .repo-details__title {
     font-size: 32px;
@@ -136,5 +145,4 @@ import { useRoute } from 'vue-router';
         margin: 0;
     }
 }
-
 </style>
