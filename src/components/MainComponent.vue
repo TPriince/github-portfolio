@@ -1,8 +1,4 @@
 <template>
-    <!-- MAIN-CONTENT -->
-    <div class="main-content">
-        <NavBar />
-
         <!-- MAIN -->
         <main class="main">
             <header>
@@ -13,17 +9,14 @@
 
             <RepoList />
         </main>
-    </div>
 </template>
 
 <script>
-import NavBar from './NavBar.vue'
 import AboutMe from './AboutMe.vue'
 import RepoList from './RepoList.vue'
     export default {
         name: "MainComponent",
         components: {
-            NavBar,
             AboutMe,
             RepoList,
         }
@@ -60,22 +53,5 @@ import RepoList from './RepoList.vue'
     width: 45px;
     height: 5px;
   }
-}
-
-@media screen and (min-width: 1024px) {
-    .main-content {
-        position: relative;
-        width: max-content;
-        margin: auto;
-    }    
-}
-
-@media screen and (min-width: 1250px) {
-    .main-content {
-        min-width: 75%;
-        margin: 0;
-    }
-    
-    .main { min-height: 100%; }
 }
 </style>

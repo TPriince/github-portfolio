@@ -268,9 +268,7 @@ hr {
 
     .sidebar-info { flex-direction: column; }
 
-    .image-box img {
-        width: 150px;
-    }
+    .image-box img { width: 150px; }
 
     .name { text-align: center; }
 

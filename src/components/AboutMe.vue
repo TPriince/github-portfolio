@@ -1,8 +1,7 @@
 <template>
     <section class="about-me__text">
         <p>I am a Tech enthusiast</p>
-        <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Quasi deleniti animi odit, vitae rem non magni facere reiciendis dolorem quae quas quaerat fugiat voluptate voluptatem quidem neque ipsa explicabo nulla.
-            Aliquid culpa modi odit accusantium ipsam ex facere dicta mollitia eos quibusdam itaque libero commodi laborum earum dolores, aliquam, fuga corporis iste. Accusamus, excepturi consectetur? Velit enim doloribus expedita aperiam?</p>
+        <p>My name is Tobiloba Odukoya from Lagos state, Nigeria. I am a Front-end developer and an aspiring Fullstack developer. In my spare time, when I am not coding, I love listening to music, watching movies and sometimes, I read novels. I am a very friendly person and I love to connect and meet new people. I am also a very hardworking person and I am always ready to learn new things.</p>
     </section>
 </template>
 
@@ -16,7 +15,7 @@
 .about-me__text { font-size: 14px; }
 .about-me__text p {
     color: var(--light-gray-70);
-    font-weight: 300;
+    font-weight: 400;
     margin-bottom: 15px;
 }
 

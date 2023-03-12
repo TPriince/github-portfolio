@@ -2,30 +2,16 @@
     <!-- NAVBAR -->
     <nav class="navbar">
         <ul>
-            <RouterLink to="/about" ><li :class="{ 'active': activeTab === 'about' }" @click="setActiveTab">About</li></RouterLink>
-            <a href="#"><li :class="{ 'active': activeTab === 'contact' }" @click="setActiveTab">Contact</li></a>
-            <RouterLink to="/repository"><li :class="{ 'active': activeTab === 'repositories' }" @click="setActiveTab">Repositories</li></RouterLink>
+            <li><RouterLink active-class="active-link" to="/">Home</RouterLink></li>
+            <li><RouterLink active-class="active-link" to="/404-page">404 Page</RouterLink></li>
+            <li><a href="https://github.com/TPriince" target="_blank">GitHub Profile</a></li>
         </ul>
     </nav>
 </template>
 
 <script>
-import { RouterLink } from 'vue-router';
     export default {
         name: "NavBar",
-        components: {
-            RouterLink,
-        },
-        data() {
-            return {
-                activeTab: 'about',
-            }
-        },
-        methods: {
-            setActiveTab(event) {
-                this.activeTab = event.target.innerText.toLowerCase();
-            }
-        },
     }
 </script>
 
@@ -56,7 +42,11 @@ import { RouterLink } from 'vue-router';
     color: var(--light-gray-70);
 }
 
-.navbar ul li.active { color: var(--greenish); }
+.navbar ul li:hover {
+    color: var(--greenish);
+}
+
+.active-link { color: var(--greenish); }
 
 @media screen and (min-width: 580px) {
     .navbar { border-radius: 20px 20px 0 0; }
@@ -83,6 +73,6 @@ import { RouterLink } from 'vue-router';
 
     .navbar ul { gap: 30px; }
 
-    .navbar ul li { font-weight: 500; }    
+    .navbar ul li { font-weight: 400; }    
 }
 </style>

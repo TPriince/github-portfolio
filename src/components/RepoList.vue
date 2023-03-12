@@ -7,6 +7,9 @@
             <li v-for="repo in reposPerPage" :key="repo.id">
                 <h4 class="repo-name">{{ repo.name }}</h4>
                 <p class="repo-description">{{ repo.description }}</p>
+                <div>
+                    <button class="repo-details__btn page-btn" @click="routeTo.push(`/repository/${repo.name}`)">Link to details</button>
+                </div>
             </li>
         </ul>
         <div class="pages-box">
@@ -25,6 +28,7 @@
 </template>
 
 <script>
+import { useRouter } from 'vue-router';
     export default {
         name: "RepoList",
         data() {
@@ -38,10 +42,15 @@
                 reposPerPage: [],
                 loading: true,
                 activePage: 1,
+                routeTo: null,
             }
         },
         created() {
             this.getData();
+        },
+        mounted() {
+            const router = useRouter();
+            this.routeTo = router;
         },
         methods: {
             getData() {
@@ -71,7 +80,7 @@
             handleSetPage(page) {
                 this.page = page;
                 this.activePage = page;
-            }
+            },
         },
         watch: {
             page() {
@@ -121,8 +130,13 @@
     padding: 20px;
     border-radius: 14px;
     box-shadow: var(--shadow-2);
-    height: 150px;
+    min-height: 120px;
     z-index: 1;
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-evenly;
+    align-items: center;
 }
 
 .repo-list li::before {
@@ -148,6 +162,8 @@
     font-size: 0.8rem;
     color: var(--light-gray-70);
     text-align: center;
+    margin-bottom: 10px;
+    font-weight: 400;
 }
 
 .pages-box {
@@ -172,6 +188,10 @@
 
 .page-btn:hover, .page-btn:focus {
     background: var(--bg-gradient-green-2);
+}
+
+.repo-details__btn {
+    background: var(--bg-gradient-onyx);
 }
 
 .pages-box p { font-size: 14px; }
