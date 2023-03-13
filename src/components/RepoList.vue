@@ -4,7 +4,7 @@
         <h3 class="section-title">My Repositories</h3>
         <h3 class="loading__text" v-if="loading">Loading...</h3>
         <h3 class="error-finding-repo__text" v-else-if="errorFindingRepo">Something went wrong. Please, refresh or try again some other time.</h3>
-        <h3 class="no-repo__text"  v-else-if="pages === 0">No repositories found</h3>
+        <h3 class="no-repo__text" v-else-if="pages === 0">No repositories found</h3>
         <ul class="repo-list" v-else>
             <li v-for="repo in reposPerPage" :key="repo.id">
                 <h4 class="repo-name">{{ repo.name }}</h4>
