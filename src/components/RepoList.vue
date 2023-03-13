@@ -2,8 +2,10 @@
     <!-- REPOSITORIES SECTION -->
     <section class="repos">
         <h3 class="section-title">My Repositories</h3>
-        <h3 v-if="loading" class="loading-text">Loading...</h3>
-        <ul class="repo-list" v-if="!loading">
+        <h3 class="loading__text" v-if="loading">Loading...</h3>
+        <h3 class="error-finding-repo__text" v-else-if="errorFindingRepo">Something went wrong. Please, refresh or try again some other time.</h3>
+        <h3 class="no-repo__text"  v-else-if="pages === 0">No repositories found</h3>
+        <ul class="repo-list" v-else>
             <li v-for="repo in reposPerPage" :key="repo.id">
                 <h4 class="repo-name">{{ repo.name }}</h4>
                 <p class="repo-description">{{ repo.description }}</p>
@@ -41,6 +43,7 @@ import { useRouter } from 'vue-router';
                 skip: null,
                 reposPerPage: [],
                 loading: true,
+                errorFindingRepo: false,
                 activePage: 1,
                 routeTo: null,
             }
@@ -60,7 +63,8 @@ import { useRouter } from 'vue-router';
                         this.loading = false;
                         return response.json();
                     } else {
-                        throw new Error('Something went wrong while list of repositories');
+                        this.loading = false;
+                        throw new Error('Something went wrong while fetching list of repositories');
                     }
                 })
                 .then(data => {
@@ -71,8 +75,8 @@ import { useRouter } from 'vue-router';
                     this.reposPerPage = this.repos.slice(this.skip, this.skip + this.PER_PAGE);
                 })
                 .catch(err => {
+                    this.errorFindingRepo = true;
                     console.log(err);
-                    this.pages = 0;
                 })
             },
             handlePrevPage() {
@@ -120,7 +124,7 @@ import { useRouter } from 'vue-router';
     border-radius: 3px;
 }
 
-.loading-text {
+.loading__text, .error-finding-repo__text, .no-repo__text {
     color: var(--light-gray-70);
     text-align: center;
 }
@@ -237,7 +241,7 @@ import { useRouter } from 'vue-router';
 }
 
 @media screen and (min-width: 768px) {
-    .loading-text { font-size: 1.4rem; }
+    .loading-text, .error-finding-repo__text, .no-repo-text { font-size: 1.4rem; }
     .repo-name { font-size: 1rem; }
 
     .repo-description { font-size: 0.9rem; }
@@ -253,7 +257,7 @@ import { useRouter } from 'vue-router';
 
 @media screen and (min-width: 1024px) {
     .section-title { font-size: 28px; }
-    .loading-text { font-size: 1.6rem; }
+    .loading__text, .error-finding-repo__text, .no-repo__text { font-size: 1.6rem; }
     .repo-list {
         grid-template-columns: 1fr 1fr;
         gap: 20px 25px;

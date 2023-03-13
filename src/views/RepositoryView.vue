@@ -2,7 +2,13 @@
     <!-- REPOSITORY DETAILS SECTION-->
     <section class="repo-details">
         <h1 class="repo-details__title">Repository</h1>
-        <div v-if="repoFound" class="repo-info">
+        <div v-if="loading">
+            <h3 class="loading">Loading...</h3>
+        </div>
+        <div v-else-if="repoNotFound">
+            <h3 class="not-found__heading">Repository not found</h3>
+        </div>
+        <div class="repo-info" v-else>
                 <h2 class="repo-name">{{ repo.name }}</h2>
                 <h3 class="repo-fullname"><span>Full Name:</span> {{ repo.full_name }}</h3>
                 <p v-if="repo.description"><span>Desricption:</span> {{ repo.description }}</p>
@@ -15,9 +21,6 @@
                 <button class="btn" @click="routeTo.push(`/repository/${repo.name}/link`)">Show link to respository</button>
 
                 <RouterView :href="repo.svn_url"/>
-        </div>
-        <div v-else>
-            <h3 class="not-found__heading">Repository not found</h3>
         </div>
     </section>
 </template>
@@ -34,7 +37,8 @@ import { useRoute, useRouter, RouterView } from 'vue-router';
                 route: null,
                 pathName: null,
                 repo: {},
-                repoFound: true,
+                loading: true,
+                repoNotFound: false,
                 routeTo: null,
             }
         },
@@ -52,9 +56,10 @@ import { useRoute, useRouter, RouterView } from 'vue-router';
                 fetch(`https://api.github.com/repos/TPriince/${this.pathName}`)
                 .then(response => {
                     if (response.ok) {
+                        this.loading = false;
                         return response.json();
                     } else {
-                        this.repoFound = false;
+                        this.loading = false;
                         throw new Error('Something went wrong while fetching repository details');
                     }
                 })
@@ -62,6 +67,7 @@ import { useRoute, useRouter, RouterView } from 'vue-router';
                     this.repo = data;
                 })
                 .catch(err => {
+                    this.repoNotFound = true;
                     console.log(err);
                 })
             },
@@ -112,7 +118,7 @@ import { useRoute, useRouter, RouterView } from 'vue-router';
 
 .btn:hover, .btn:focus { background: var(--bg-gradient-onyx); }
 
-.not-found__heading {
+.loading, .not-found__heading {
     text-align: center;
     color: var(--light-gray-70);
     font-weight: 500;
