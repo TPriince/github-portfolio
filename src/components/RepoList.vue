@@ -145,7 +145,7 @@ import { useRouter } from 'vue-router';
     text-align: center;
     display: flex;
     flex-direction: column;
-    justify-content: space-evenly;
+    justify-content: space-between;
     align-items: center;
 }
 
