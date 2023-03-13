@@ -1,4 +1,5 @@
 <template>
+    <!-- ABOUT ME SECTION -->
     <section class="about-me__text">
         <p>My name is Tobiloba Odukoya, a Tech enthusiast from Lagos state, Nigeria. I am a Front-end developer and an aspiring Full-stack developer. In my spare time, when I am not coding, I love listening to music, watching movies and sometimes, I read novels. I am a friendly person, who loves to connect and meet new people and also learn new things.</p>
     </section>
