@@ -121,7 +121,7 @@ p, h1, h2, h3, h4, h5, h6 {
 }
   
 .container {
-  margin: 15px 16px 75px 16px;
+  margin: 15px 16px 75px;
   min-width: 260px;
 }
 
@@ -134,6 +134,13 @@ p, h1, h2, h3, h4, h5, h6 {
   margin-bottom: 15px;
   z-index: 1;
   transition: var(--transition-2);
+}
+
+@media screen and (max-width: 280px) {
+  .container {
+    max-width: 260px;
+    margin: 15px auto 75px;
+  }
 }
 
 @media screen and (min-width: 580px) {
