@@ -5,20 +5,24 @@
         <span><span class="screen-reader-text">0</span></span>
         <span>{{ num }}</span>
         <p class="page-not-found__text">Sorry, page not found!</p>
-        <RouterLink to="/" class="home-link">Go back</RouterLink>
+        <button class="home-link" @click="routeTo.back()">Go back</button>
     </section>
 </template>
 
 <script>
+import { useRouter } from 'vue-router'
     export default {
         name: "NotFoundView",
         data() {
             return {
                 num: 0,
                 timer: null,
+                routeTo: null,
             }
         },
         mounted() {
+          const router = useRouter();
+          this.routeTo = router;
             setTimeout(() => {
                 this.timer = setInterval(() => {
                 if (this.num === 3) {

@@ -41,7 +41,6 @@ import NavBar from './components/NavBar.vue';
     hsl(240, 1%, 25%) 3%, 
     hsl(0, 0%, 19%) 97%
   );
-  --bg-gradient-onyx: linear-gradient( to bottom right, hsl(240, 1%, 25%) 3%, hsl(0, 0%, 19%) 97% );
   --border-gradient-onyx: linear-gradient(
     to bottom right, 
     hsl(0, 0%, 25%) 0%, 

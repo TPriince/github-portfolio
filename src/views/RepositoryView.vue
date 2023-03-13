@@ -12,7 +12,9 @@
                 <p><span>Number of forks:</span> {{ repo.forks_count }}</p>
                 <p><span>Visibilty:</span> {{ repo.visibility }}</p>
 
-                <a :href="repo.svn_url" target="_blank" class="repo-link">Link to repository</a>
+                <button class="btn" @click="routeTo.push(`/repository/${repo.name}/link`)">Show link to respository</button>
+
+                <RouterView :href="repo.svn_url"/>
         </div>
         <div v-else>
             <h3 class="not-found__heading">Repository not found</h3>
@@ -21,21 +23,29 @@
 </template>
 
 <script>
-import { useRoute } from 'vue-router';
+import { useRoute, useRouter, RouterView } from 'vue-router';
     export default {
         name: 'RepositoryView',
+        components: {
+            RouterView,
+        },
         data() {
             return {
                 route: null,
                 pathName: null,
                 repo: {},
                 repoFound: true,
+                routeTo: null,
             }
         },
         created() {
             this.route = useRoute();
             this.pathName = this.route.params.name;
             this.getData();
+        },
+        mounted() {
+            const router = useRouter();
+            this.routeTo = router;
         },
         methods: {
             getData() {
@@ -89,14 +99,18 @@ import { useRoute } from 'vue-router';
 }
 
 .repo-info p span { font-weight: 700;}
-.repo-link {
-    display: block;
-    text-align: center;
-    margin-top: 20px;
+
+.btn {
+    font-weight: 500;
+    padding: 3px 16px;
+    border-radius: 10px;
+    box-shadow: var(--shadow-1);
     color: var(--greenish);
-    text-decoration: none;
-    font-size: 1rem;
+    margin-top: 15px;
+    font-size: 0.8rem;
 }
+
+.btn:hover, .btn:focus { background: var(--bg-gradient-onyx); }
 
 .not-found__heading {
     text-align: center;
@@ -116,14 +130,14 @@ import { useRoute } from 'vue-router';
     width: 45px;
     height: 5px;
   }
+
+  .btn { font-size: 0.9rem; }
 }
 
 @media screen and (min-width: 768px) {
-    .repo-fullname { font-size: 1.2rem; }
+    .repo-fullname { font-size: 1.1rem; }
 
     .repo-info p { font-size: 1rem; }
-
-    .repo-link { font-size: 1.1rem; }
 }
 
 @media screen and (min-width: 1024px) {
@@ -132,11 +146,11 @@ import { useRoute } from 'vue-router';
         margin: auto;
     }
 
-    .repo-fullname { font-size: 1.4rem; }
+    .repo-fullname { font-size: 1.2rem; }
 
     .repo-info p { font-size: 1.2rem; }
 
-    .repo-link { font-size: 1.3rem; }
+    .btn { font-size: 0.9rem; }
 }
 
 @media screen and (min-width: 1250px) {

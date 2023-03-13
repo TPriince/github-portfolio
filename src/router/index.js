@@ -2,6 +2,7 @@ import { createRouter, createWebHistory } from "vue-router";
 import HomeView from '../views/HomeView.vue'
 import RepositoryView from '../views/RepositoryView.vue'
 import NotFoundView from '../views/NotFoundView.vue'
+import RepoLinkView from '../views/RepoLinkView.vue'
 
 const routes = [
     {
@@ -12,7 +13,13 @@ const routes = [
     {
         path: '/repository/:name',
         name: 'repository',
-        component: RepositoryView
+        component: RepositoryView,
+        children: [                 // nested routes
+            {
+                path: 'link',
+                component: RepoLinkView,
+            }
+        ]
     },
     {
         path: '/:pathMatch(.*)*',
