@@ -2,7 +2,7 @@
     <aside :class="showMoreInfo ? 'sidebar active' : 'sidebar' ">
         <div class="sidebar-info">
             <figure class="image-box">
-                <img src="../assets/Tobiloba.png" alt="A picture of myself - Tobiloba Odukoya" loading="lazy" />
+                <img src="../assets/Tobiloba.webp" alt="A picture of myself - Tobiloba Odukoya" loading="lazy" />
             </figure>
             <div class="info-content">
                 <h1 class="name" title="Tobiloba Odukoya">Tobiloba Odukoya</h1>
