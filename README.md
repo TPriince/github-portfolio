@@ -1,6 +1,6 @@
 # github-portfolio
 
-## [Link to project](https://github-portfolio-9eunqbvvb-tpriince.vercel.app/)
+## [Link to project](https://github-portfolio-eight.vercel.app/)
 
 ## Project setup
 ```
