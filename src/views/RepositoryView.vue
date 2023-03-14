@@ -26,7 +26,7 @@
 </template>
 
 <script>
-import { useRoute, RouterView } from 'vue-router';
+import { RouterView } from 'vue-router';
     export default {
         name: 'RepositoryView',
         components: {
@@ -34,7 +34,6 @@ import { useRoute, RouterView } from 'vue-router';
         },
         data() {
             return {
-                route: null,
                 pathName: null,
                 repo: {},
                 loading: true,
@@ -42,8 +41,7 @@ import { useRoute, RouterView } from 'vue-router';
             }
         },
         created() {
-            this.route = useRoute();
-            this.pathName = this.route.params.name;
+            this.pathName = this.$route.params.name;
             this.getData();
         },
         methods: {

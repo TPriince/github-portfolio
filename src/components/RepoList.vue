@@ -1,12 +1,13 @@
 <template>
     <!-- REPOSITORIES SECTION -->
     <section class="repos">
-        <h3 class="section-title">My Repositories</h3>
+        <h3 class="section-title">My GitHub Repositories</h3>
+        <input type="text" placeholder="Search for repository" v-model="search" @input="handleSearch" />
         <h3 class="loading__text" v-if="loading">Loading...</h3>
         <h3 class="error-finding-repo__text" v-else-if="errorFindingRepo">Something went wrong. Please, refresh or try again some other time.</h3>
         <h3 class="no-repo__text" v-else-if="pages === 0">No repositories found</h3>
         <ul class="repo-list" v-else>
-            <li v-for="repo in reposPerPage" :key="repo.id">
+            <li v-for="repo in pagination" :key="repo.id">
                 <h4 class="repo-name">{{ repo.name }}</h4>
                 <p class="repo-description">{{ repo.description }}</p>
                 <div>
@@ -40,7 +41,7 @@
                 pages: null,
                 page: 1,
                 skip: null,
-                reposPerPage: [],
+                search: '',
                 loading: true,
                 errorFindingRepo: false,
                 activePage: 1,
@@ -66,7 +67,6 @@
                     this.total = this.repos.length;
                     this.pages = Math.ceil(this.total / this.PER_PAGE);
                     this.skip = this.page * this.PER_PAGE - this.PER_PAGE;
-                    this.reposPerPage = this.repos.slice(this.skip, this.skip + this.PER_PAGE);
                 })
                 .catch(err => {
                     this.errorFindingRepo = true;
@@ -85,17 +85,32 @@
                 this.page = page;
                 this.activePage = page;
             },
+            handleSearch() {
+                console.log(this.search);
+                if (this.search === '') {
+                    this.getData();
+                }
+                this.repos = this.repos.filter(repo => {
+                    return repo.name.toLowerCase().includes(this.search.toLowerCase());
+                })
+            }
         },
         watch: {
             page() {
                 this.skip = this.page * this.PER_PAGE - this.PER_PAGE;
-                this.reposPerPage = this.repos.slice(this.skip, this.skip + this.PER_PAGE);
+            },
+            repos() {
+                this.total = this.repos.length;
+                this.pages = Math.ceil(this.total / this.PER_PAGE);
             }
         },
         computed: {
             buttonPages() {
                 return Array.from({ length: this.pages }, (_, i) => i + 1);
             },
+            pagination() {
+                return this.repos.slice(this.skip, this.skip + this.PER_PAGE);
+            }
         }
     }
 </script>
@@ -103,7 +118,7 @@
 <style scoped>
 .section-title {
     position: relative;
-    font-size: 24px;
+    font-size: 21px;
     margin-bottom: 20px;
 }
 
@@ -116,6 +131,24 @@
     height: 3px;
     background: var(--greenish);
     border-radius: 3px;
+}
+
+.repos input {
+    width: 100%;
+    padding: 4px;
+    border: 2px inset var(--light-gray-70);
+    border-radius: 5px;
+    margin-bottom: 20px;
+    font-size: 0.8rem;
+}
+
+.repos input::placeholder { font-weight: 100; }
+
+.repos input:focus {
+    outline: none;
+    border: 1px solid var(--greenish);
+    background: var(--bg-gradient-jet);
+    color: white;
 }
 
 .loading__text, .error-finding-repo__text, .no-repo__text {
@@ -217,6 +250,7 @@
 .btn-set .page-btn.active-page { background: var(--bg-gradient-onyx); }
 
 @media screen and (min-width: 425px) {
+    .section-title { font-size: 24px; }
     .btn-set { gap: 8px; }
 
     .btn-set .page-btn {
@@ -236,6 +270,14 @@
 
 @media screen and (min-width: 768px) {
     .loading-text, .error-finding-repo__text, .no-repo-text { font-size: 1.4rem; }
+
+    .repos input {
+        display: block;
+        padding: 6px;
+        font-size: 0.9rem;
+        width: 80%;
+        margin: 0 auto 20px;
+    }
     .repo-name { font-size: 1rem; }
 
     .repo-description { font-size: 0.9rem; }
@@ -251,6 +293,13 @@
 
 @media screen and (min-width: 1024px) {
     .section-title { font-size: 28px; }
+
+    .repos input {
+        font-size: 0.8rem;
+        width: 50%;
+        margin-left: auto;
+        margin-right: 0;
+    }
     .loading__text, .error-finding-repo__text, .no-repo__text { font-size: 1.6rem; }
     .repo-list {
         grid-template-columns: 1fr 1fr;

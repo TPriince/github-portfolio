@@ -9,7 +9,8 @@
                 <p class="title">Software Developer</p>
             </div>
             <button class="info-more__btn" @click="toggleMoreInfo">
-                <span>Show Contacts</span>
+                <span v-show="!showMoreInfo">Show Contacts</span>
+                <span v-show="showMoreInfo">Hide Contacts</span>
                 <i v-show="!showMoreInfo" class="uil uil-angle-down"></i>
                 <i v-show="showMoreInfo" class="uil uil-angle-up"></i>
             </button>
