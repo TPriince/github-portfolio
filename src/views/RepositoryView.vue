@@ -18,7 +18,7 @@
                 <p><span>Number of forks:</span> {{ repo.forks_count }}</p>
                 <p><span>Visibilty:</span> {{ repo.visibility }}</p>
 
-                <button class="btn" @click="routeTo.push(`/repository/${repo.name}/link`)">Show link to respository</button>
+                <button class="btn" @click="$router.push(`/repository/${repo.name}/link`)">Show link to respository</button>
 
                 <RouterView :href="repo.svn_url"/>
         </div>
@@ -26,7 +26,7 @@
 </template>
 
 <script>
-import { useRoute, useRouter, RouterView } from 'vue-router';
+import { useRoute, RouterView } from 'vue-router';
     export default {
         name: 'RepositoryView',
         components: {
@@ -39,17 +39,12 @@ import { useRoute, useRouter, RouterView } from 'vue-router';
                 repo: {},
                 loading: true,
                 repoNotFound: false,
-                routeTo: null,
             }
         },
         created() {
             this.route = useRoute();
             this.pathName = this.route.params.name;
             this.getData();
-        },
-        mounted() {
-            const router = useRouter();
-            this.routeTo = router;
         },
         methods: {
             getData() {

@@ -10,7 +10,7 @@
                 <h4 class="repo-name">{{ repo.name }}</h4>
                 <p class="repo-description">{{ repo.description }}</p>
                 <div>
-                    <button class="repo-details__btn page-btn" @click="routeTo.push(`/repository/${repo.name}`)">Link to details</button>
+                    <button class="repo-details__btn page-btn" @click="$router.push(`/repository/${repo.name}`)">Link to details</button>
                 </div>
             </li>
         </ul>
@@ -30,7 +30,6 @@
 </template>
 
 <script>
-import { useRouter } from 'vue-router';
     export default {
         name: "RepoList",
         data() {
@@ -45,15 +44,10 @@ import { useRouter } from 'vue-router';
                 loading: true,
                 errorFindingRepo: false,
                 activePage: 1,
-                routeTo: null,
             }
         },
         created() {
             this.getData();
-        },
-        mounted() {
-            const router = useRouter();
-            this.routeTo = router;
         },
         methods: {
             getData() {
