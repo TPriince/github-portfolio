@@ -88,6 +88,7 @@
             handleSearch() {
                 if (this.search === '') {
                     this.getData();
+                    this.page = this.activePage;
                     return;
                 }
                 this.repos = this.repos.filter(repo => {
