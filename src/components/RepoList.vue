@@ -251,6 +251,7 @@
 
 @media screen and (min-width: 425px) {
     .section-title { font-size: 24px; }
+    
     .btn-set { gap: 8px; }
 
     .btn-set .page-btn {
