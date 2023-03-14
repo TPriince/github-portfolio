@@ -86,11 +86,12 @@
                 this.activePage = page;
             },
             handleSearch() {
-                console.log(this.search);
                 if (this.search === '') {
                     this.getData();
+                    return;
                 }
                 this.repos = this.repos.filter(repo => {
+                    this.page = 1;
                     return repo.name.toLowerCase().includes(this.search.toLowerCase());
                 })
             }
