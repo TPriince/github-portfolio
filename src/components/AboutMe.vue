@@ -19,7 +19,7 @@
         name: "AboutMe",
         data() {
             return {
-                user: null,
+                user: [],
                 loading: true,
                 cantFindUser: false,
             }

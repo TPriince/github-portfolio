@@ -1,7 +1,7 @@
 <template>
     <!-- REPOSITORIES SECTION -->
     <section class="repos">
-        <h3 class="section-title">My GitHub Repositories</h3>
+        <h3 class="section-title">My GitHub repositories</h3>
         <input type="text" placeholder="Search for repository" v-model="search" @input="handleSearch" />
         <h3 class="loading__text" v-if="loading">Loading...</h3>
         <h3 class="error-finding-repo__text" v-else-if="errorFindingRepo">Something went wrong. Please, refresh or try again some other time.</h3>
