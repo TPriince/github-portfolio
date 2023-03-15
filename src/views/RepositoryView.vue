@@ -1,7 +1,7 @@
 <template>
     <!-- REPOSITORY DETAILS SECTION-->
     <section class="repo-details">
-        <h1 class="repo-details__title">Repository</h1>
+        <h1 class="repo-details__title">Repository details</h1>
         <div v-if="loading">
             <h3 class="loading">Loading...</h3>
         </div>

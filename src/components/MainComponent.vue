@@ -2,7 +2,7 @@
         <!-- MAIN -->
         <main class="main">
             <header>
-                <h1 class="about-me__title">About Me</h1>
+                <h1 class="about-me__title">GitHub profile info</h1>
             </header>
 
             <AboutMe />
