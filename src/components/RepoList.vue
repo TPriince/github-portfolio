@@ -40,7 +40,7 @@
                 total: null,
                 pages: null,
                 page: 1,
-                skip: null,
+                from: null,
                 search: '',
                 loading: true,
                 errorFindingRepo: false,
@@ -66,7 +66,7 @@
                     this.repos = data;
                     this.total = this.repos.length;
                     this.pages = Math.ceil(this.total / this.PER_PAGE);
-                    this.skip = this.page * this.PER_PAGE - this.PER_PAGE;
+                    this.from = (this.page * this.PER_PAGE) - this.PER_PAGE;
                 })
                 .catch(err => {
                     this.errorFindingRepo = true;
@@ -99,7 +99,7 @@
         },
         watch: {
             page() {
-                this.skip = this.page * this.PER_PAGE - this.PER_PAGE;
+                this.from = (this.page * this.PER_PAGE) - this.PER_PAGE;
             },
             repos() {
                 this.total = this.repos.length;
@@ -111,7 +111,8 @@
                 return Array.from({ length: this.pages }, (_, i) => i + 1);
             },
             pagination() {
-                return this.repos.slice(this.skip, this.skip + this.PER_PAGE);
+                let to = this.from + this.PER_PAGE;
+                return this.repos.slice(this.from, to);
             }
         }
     }
