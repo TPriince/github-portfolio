@@ -2,7 +2,7 @@
     <!-- REPOSITORIES SECTION -->
     <section class="repos">
         <h3 class="section-title">My GitHub repositories</h3>
-        <input type="text" placeholder="Search for repository" v-model="search" @input="handleSearch" />
+        <input type="text" placeholder="Search for repository" v-model="search" />
         <h3 class="loading__text" v-if="loading">Loading...</h3>
         <h3 class="error-finding-repo__text" v-else-if="errorFindingRepo">Something went wrong. Please, refresh or try again some other time.</h3>
         <h3 class="no-repo__text" v-else-if="pages === 0">No repositories found</h3>
@@ -36,6 +36,7 @@
         data() {
             return {
                 repos: [],
+                filteredRepos: [],
                 PER_PAGE: 6,
                 total: null,
                 pages: null,
@@ -64,6 +65,7 @@
                 })
                 .then(data => {
                     this.repos = data;
+                    this.filteredRepos = this.repos;
                     this.total = this.repos.length;
                     this.pages = Math.ceil(this.total / this.PER_PAGE);
                     this.from = (this.page * this.PER_PAGE) - this.PER_PAGE;
@@ -85,25 +87,23 @@
                 this.page = page;
                 this.activePage = page;
             },
-            handleSearch() {
-                if (this.search === '') {
-                    this.getData();
-                    this.page = this.activePage;
-                    return;
-                }
-                this.repos = this.repos.filter(repo => {
-                    this.page = 1;
-                    return repo.name.toLowerCase().includes(this.search.toLowerCase());
-                })
-            }
         },
         watch: {
             page() {
                 this.from = (this.page * this.PER_PAGE) - this.PER_PAGE;
             },
-            repos() {
-                this.total = this.repos.length;
+            filteredRepos() {
+                this.total = this.filteredRepos.length;
                 this.pages = Math.ceil(this.total / this.PER_PAGE);
+            },
+            search() {
+                if (this.search === '') {
+                    this.page = this.activePage;
+                    this.filteredRepos = this.repos;
+                } else {
+                    this.page = 1;
+                    this.filteredRepos = this.repos.filter(repo => repo.name.toLowerCase().includes(this.search.toLowerCase()));
+                }
             }
         },
         computed: {
@@ -112,7 +112,7 @@
             },
             pagination() {
                 let to = this.from + this.PER_PAGE;
-                return this.repos.slice(this.from, to);
+                return this.filteredRepos.slice(this.from, to);
             }
         }
     }
