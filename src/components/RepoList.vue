@@ -3,7 +3,9 @@
     <section class="repos">
         <h3 class="section-title">My GitHub repositories</h3>
         <input type="text" placeholder="Search for repository" v-model="search" />
-        <h3 class="loading__text" v-if="loading">Loading...</h3>
+        <h3 class="loading" v-if="loading">
+            <div class="custom-loader"></div>
+        </h3>
         <h3 class="error-finding-repo__text" v-else-if="errorFindingRepo">Something went wrong. Please, refresh or try again some other time.</h3>
         <h3 class="no-repo__text" v-else-if="pages === 0">No repositories found</h3>
         <ul class="repo-list" v-else>
@@ -154,10 +156,47 @@
     color: white;
 }
 
-.loading__text, .error-finding-repo__text, .no-repo__text {
+.error-finding-repo__text, .no-repo__text {
     color: var(--light-gray-70);
     text-align: center;
 }
+
+.loading {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 50vh;
+}
+
+.custom-loader {
+  width: 50px;
+  height: 50px;
+  --c: radial-gradient(farthest-side, var(--greenish) 92%, #0000);
+  background: 
+    var(--c) 50%  0, 
+    var(--c) 50%  100%, 
+    var(--c) 100% 50%, 
+    var(--c) 0    50%;
+  background-size: 10px 10px;
+  background-repeat: no-repeat;
+  animation: s8 1s infinite;
+  position: relative;
+}
+
+.custom-loader::before {    
+  content: "";
+  position: absolute;
+  inset: 0;
+  margin: 3px;
+  background: repeating-conic-gradient(#0000 0 35deg, var(--greenish) 0 90deg);
+  -webkit-mask: radial-gradient(farthest-side,#0000 calc(100% - 3px),#000 0);
+  border-radius: 50%;
+}
+
+@keyframes s8 { 
+  100% { transform: rotate(.5turn) }
+}
+
 .repo-list {
     display: grid;
     grid-template-columns: 1fr;
